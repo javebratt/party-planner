@@ -23,7 +23,8 @@
     "@angular/router": "~12.1.1",
     "@ionic/angular": "^5.5.2",
     "firebase": "^9.0.0",
-    "rxjs": "^7.3.0",
+    "rxfire": "^6.0.0",
+    "rxjs": "^6.6.7",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
   },
