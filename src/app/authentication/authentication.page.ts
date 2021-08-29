@@ -51,15 +51,10 @@ export class AuthenticationPage implements OnInit {
     const loading = await this.loadingCtrl.create();
     try {
       await loading.present();
-
-      const userCredential = await this.auth.login(email, password);
-      console.log(userCredential.user);
-      console.log(this.auth.getUser());
-
+      await this.auth.login(email, password);
       await loading.dismiss();
       this.router.navigateByUrl('');
     } catch (error) {
-      console.dir(error);
       await loading.dismiss();
       this.displayAlertMessage(
         `Either we couldn't find your user or there was a problem with the password`

@@ -34,7 +34,6 @@ export class DetailPartyComponent implements OnInit {
     try {
       await loading.present();
 
-      // console.dir(this.currentParty);
       await this.partyService.addTicketOperation(
         this.currentParty.id,
         this.currentParty.ticketPrice,
