@@ -3,8 +3,41 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/party"></ion-back-button>
     </ion-buttons>
-    <ion-title>Edit Event</ion-title>
+    <ion-title>{{ currentParty?.name }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      Event's Revenue:
+      <span
+        [class.profitable]="currentParty?.revenue > 0"
+        [class.no-profit]="currentParty?.revenue <= 0"
+      >
+        {{ currentParty?.revenue | currency }}
+      </span>
+    </ion-card-header>
+    <ion-card-content>
+      <p>
+        Ticket: <strong>${{ currentParty?.ticketPrice }}</strong>
+      </p>
+      <p>
+        Date: <strong>{{ currentParty?.date | date }}</strong>
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <h5>
+    Tickets Sold:
+    {{ currentParty?.revenue / currentParty?.ticketPrice }}
+  </h5>
+  <ion-button (click)="addTicketOperation('refund')">
+    Refund Ticket
+    <ion-icon slot="end" name="remove"></ion-icon>
+  </ion-button>
+  <ion-button (click)="addTicketOperation('add')">
+    Sell Ticket
+    <ion-icon slot="end" name="add"></ion-icon>
+  </ion-button>
+</ion-content>

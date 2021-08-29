@@ -9,6 +9,7 @@ import {
   DocumentReference,
   deleteDoc,
   addDoc,
+  runTransaction,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -57,5 +58,28 @@ export class PartyService {
       `users/${userId}/party/${partyId}`
     );
     return deleteDoc(documentReference);
+  }
+
+  async addTicketOperation(
+    partyId: string,
+    ticketCost: number,
+    type: string = 'add'
+  ) {
+    const userId: string = this.auth.getUser().uid;
+    const partyDocRef = doc(this.firestore, `users/${userId}/party/${partyId}`);
+    try {
+      await runTransaction(this.firestore, async (transaction) => {
+        const partyDoc = await transaction.get(partyDocRef);
+
+        const newRevenue =
+          type === 'add'
+            ? partyDoc.data().revenue + ticketCost
+            : partyDoc.data().revenue - ticketCost;
+        transaction.update(partyDocRef, { revenue: newRevenue });
+      });
+    } catch (error) {
+      console.log('Transaction failed: ', error);
+      throw error;
+    }
   }
 }
