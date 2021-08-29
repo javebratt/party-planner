@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthenticationGuard } from './authentication/authentication.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'party',
     pathMatch: 'full',
   },
   {
@@ -27,6 +28,12 @@ const routes: Routes = [
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationPageModule
       ),
+  },
+  {
+    path: 'party',
+    loadChildren: () =>
+      import('./party/party.module').then((m) => m.PartyPageModule),
+    canActivate: [AuthenticationGuard],
   },
 ];
 

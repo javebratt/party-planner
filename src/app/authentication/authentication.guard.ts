@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { User } from '@firebase/auth';
-import { lastValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -29,7 +29,8 @@ export class AuthenticationGuard implements CanActivate {
     | UrlTree {
     return new Promise(async (resolve, reject) => {
       try {
-        const user: User = await lastValueFrom(this.auth.getUser());
+        const user = this.auth.getUser();
+        console.log(user);
         if (user) {
           resolve(true);
         } else {

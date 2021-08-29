@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   Auth,
-  authState,
+  user,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -20,8 +20,8 @@ export class AuthenticationService {
     private readonly firestore: Firestore
   ) {}
 
-  getUser(): Observable<User> {
-    return authState(this.auth);
+  getUser(): User {
+    return this.auth.currentUser;
   }
 
   login(email: string, password: string): Promise<UserCredential> {
