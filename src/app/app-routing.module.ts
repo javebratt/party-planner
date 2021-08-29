@@ -35,6 +35,12 @@ const routes: Routes = [
       import('./party/party.module').then((m) => m.PartyPageModule),
     canActivate: [AuthenticationGuard],
   },
+  {
+    path: 'party/:partyId',
+    loadChildren: () =>
+      import('./party/party.module').then((m) => m.PartyPageModule),
+    canActivate: [AuthenticationGuard],
+  },
 ];
 
 @NgModule({
