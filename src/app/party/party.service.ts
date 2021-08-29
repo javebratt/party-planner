@@ -41,7 +41,7 @@ export class PartyService {
     return docData<Party>(partyDocument);
   }
 
-  createParty(party: Party) {
+  createParty(party: Partial<Party>) {
     const userId: string = this.auth.getUser().uid;
     const partyCollection = collection(
       this.firestore,
