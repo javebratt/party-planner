@@ -12,10 +12,10 @@
     <ion-card-header>
       Event's Revenue:
       <span
-        [class.profitable]="currentParty?.revenue > 0"
-        [class.no-profit]="currentParty?.revenue <= 0"
+        [class.profitable]="currentParty?.revenue - currentParty?.cost > 0"
+        [class.no-profit]="currentParty?.revenue - currentParty?.cost <= 0"
       >
-        {{ currentParty?.revenue | currency }}
+        {{ currentParty?.revenue - currentParty?.cost | currency }}
       </span>
     </ion-card-header>
     <ion-card-content>
