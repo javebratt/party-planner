@@ -11,6 +11,7 @@ import { AuthenticationService } from './authentication.service';
 export class AuthenticationPage implements OnInit {
   url: string;
   pageTitle = 'Sign In';
+  actionButtonText = 'Sign In';
   constructor(
     private readonly loadingCtrl: LoadingController,
     private readonly alertCtrl: AlertController,
@@ -22,10 +23,12 @@ export class AuthenticationPage implements OnInit {
     this.url = this.router.url.substr(1);
     if (this.url === 'signup') {
       this.pageTitle = 'Create your Account';
+      this.actionButtonText = 'Create Account';
     }
 
     if (this.url === 'reset') {
       this.pageTitle = 'Reset your Password';
+      this.actionButtonText = 'Reset Password';
     }
   }
 
@@ -49,11 +52,14 @@ export class AuthenticationPage implements OnInit {
     try {
       await loading.present();
 
-      await this.auth.login(email, password);
+      const userCredential = await this.auth.login(email, password);
+      console.log(userCredential.user);
+      console.log(this.auth.getUser());
 
       await loading.dismiss();
       this.router.navigateByUrl('');
     } catch (error) {
+      console.dir(error);
       await loading.dismiss();
       this.displayAlertMessage(
         `Either we couldn't find your user or there was a problem with the password`

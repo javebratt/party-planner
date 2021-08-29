@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { User } from '@firebase/auth';
+import { Auth, onAuthStateChanged } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 
@@ -14,10 +14,7 @@ import { AuthenticationService } from './authentication.service';
   providedIn: 'root',
 })
 export class AuthenticationGuard implements CanActivate {
-  constructor(
-    private readonly auth: AuthenticationService,
-    private readonly router: Router
-  ) {}
+  constructor(private readonly auth: Auth, private readonly router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -28,18 +25,14 @@ export class AuthenticationGuard implements CanActivate {
     | boolean
     | UrlTree {
     return new Promise(async (resolve, reject) => {
-      try {
-        const user = this.auth.getUser();
-        console.log(user);
+      onAuthStateChanged(this.auth, (user) => {
         if (user) {
           resolve(true);
         } else {
           reject('No user logged in');
           this.router.navigateByUrl('/login');
         }
-      } catch (error) {
-        reject(error);
-      }
+      });
     });
   }
 }

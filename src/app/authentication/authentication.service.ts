@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
   Auth,
-  user,
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -35,7 +34,7 @@ export class AuthenticationService {
 
       const userProfileDocumentReference = doc(
         this.firestore,
-        `partyPlanner/userProfile/${newUserCredential.user.uid}`
+        `apps/partyPlanner/userProfile/${newUserCredential.user.uid}`
       );
 
       await setDoc(userProfileDocumentReference, { email });

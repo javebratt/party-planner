@@ -12,7 +12,7 @@
     *ngIf="url"
     #loginForm
     (formSubmitted)="handleUserCredentials($event)"
-    [actionButtonText]="'Login'"
+    [actionButtonText]="actionButtonText"
     [isPasswordResetPage]="url === 'reset'"
   ></app-auth-form>
 
