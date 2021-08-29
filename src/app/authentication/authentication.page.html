@@ -1,9 +1,36 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>authentication</ion-title>
+    <ion-buttons *ngIf="url && url !== 'login'" slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ pageTitle }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <app-auth-form
+    *ngIf="url"
+    #loginForm
+    (formSubmitted)="handleUserCredentials($event)"
+    [actionButtonText]="'Login'"
+    [isPasswordResetPage]="url === 'reset'"
+  ></app-auth-form>
 
+  <ion-button
+    expand="block"
+    fill="clear"
+    routerLink="/signup"
+    *ngIf="url && url !== 'signup'"
+  >
+    Create a new account
+  </ion-button>
+
+  <ion-button
+    expand="block"
+    fill="clear"
+    routerLink="/reset"
+    *ngIf="url && url !== 'reset'"
+  >
+    I forgot my password :(
+  </ion-button>
 </ion-content>

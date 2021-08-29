@@ -4,11 +4,25 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'authentication',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
-    path: 'authentication',
+    path: 'login',
+    loadChildren: () =>
+      import('./authentication/authentication.module').then(
+        (m) => m.AuthenticationPageModule
+      ),
+  },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('./authentication/authentication.module').then(
+        (m) => m.AuthenticationPageModule
+      ),
+  },
+  {
+    path: 'reset',
     loadChildren: () =>
       import('./authentication/authentication.module').then(
         (m) => m.AuthenticationPageModule
