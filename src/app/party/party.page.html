@@ -4,4 +4,24 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding"> </ion-content>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item
+      tappable
+      *ngFor="let party of partyList | async"
+      routerLink="/party/{{ party.id }}"
+    >
+      <ion-label>
+        <h2>{{party?.name}}</h2>
+        <p>Ticket: <strong>${{party?.ticketPrice}}</strong></p>
+        <p>Date: <strong>{{party?.date | date }}</strong></p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/party/new">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
