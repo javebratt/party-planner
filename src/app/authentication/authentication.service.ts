@@ -34,7 +34,7 @@ export class AuthenticationService {
 
       const userProfileDocumentReference = doc(
         this.firestore,
-        `apps/partyPlanner/userProfile/${newUserCredential.user.uid}`
+        `users/${newUserCredential.user.uid}`
       );
 
       await setDoc(userProfileDocumentReference, { email });
