@@ -77,7 +77,7 @@ export class AuthenticationPage implements OnInit {
   }
 
   async resetPassword(email: string) {
-    const resetErrorMessage = `You'll receive an email with instructions on how to reset your password. If you don't receive the email please contact support`;
+    const resetErrorMessage = `You'll receive an email with instructions on how to reset your password`;
     const loading = await this.loadingCtrl.create();
     try {
       await loading.present();
