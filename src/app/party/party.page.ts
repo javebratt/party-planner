@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Party } from './party.model';
 import { PartyService } from './party.service';
 
@@ -8,11 +8,7 @@ import { PartyService } from './party.service';
   templateUrl: './party.page.html',
   styleUrls: ['./party.page.scss'],
 })
-export class PartyPage implements OnInit {
-  partyList: Observable<Party[]> = of([]);
+export class PartyPage {
+  readonly partyList$: Observable<Party[]> = this.partyService.getPartyList();
   constructor(private readonly partyService: PartyService) {}
-
-  ngOnInit() {
-    this.partyList = this.partyService.getPartyList();
-  }
 }

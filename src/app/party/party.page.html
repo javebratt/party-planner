@@ -8,7 +8,7 @@
   <ion-list>
     <ion-item
       tappable
-      *ngFor="let party of partyList | async"
+      *ngFor="let party of partyList$ | async"
       routerLink="/party/{{ party.id }}"
     >
       <ion-label>
