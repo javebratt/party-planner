@@ -32,7 +32,7 @@ export class CreatePartyComponent implements OnInit {
 
     await loading.dismiss();
 
-    this.router.navigateByUrl('party');
+    await this.router.navigateByUrl('party');
   }
 
   isValidForm(): boolean {

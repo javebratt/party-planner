@@ -11,70 +11,53 @@ import {
   addDoc,
   runTransaction,
 } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Party } from './party.model';
+import { User } from '@firebase/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PartyService {
-  constructor(
-    private readonly auth: AuthenticationService,
-    private readonly firestore: Firestore
-  ) {}
+  constructor(private readonly auth: AuthenticationService, private readonly firestore: Firestore) {}
 
   getPartyList(): Observable<Party[]> {
-    const userId: string = this.auth.getUser().uid;
-    const partyCollection: CollectionReference<Party> = collection(
-      this.firestore,
-      `users/${userId}/party`
-    ) as CollectionReference<Party>;
-    return collectionData<Party>(partyCollection, { idField: 'id' });
+    return this.auth.getUser$().pipe(
+      map(({ uid: userId }: User) => collection(this.firestore, `users/${userId}/party`)),
+      switchMap((partyCollection: CollectionReference<Party>) =>
+        collectionData<Party>(partyCollection, { idField: 'id' })
+      )
+    );
   }
 
   getPartyDetail(partyId: string): Observable<Party> {
-    const userId: string = this.auth.getUser().uid;
-    const partyDocument: DocumentReference<Party> = doc(
-      this.firestore,
-      `users/${userId}/party/${partyId}`
-    ) as DocumentReference<Party>;
-    return docData<Party>(partyDocument);
+    return this.auth.getUser$().pipe(
+      map(({ uid: userId }: User) => doc(this.firestore, `users/${userId}/party/${partyId}`)),
+      switchMap((partyDocument: DocumentReference<Party>) => docData<Party>(partyDocument))
+    );
   }
 
-  createParty(party: Partial<Party>) {
+  createParty(party: Partial<Party>): Promise<DocumentReference<Partial<Party>>> {
     const userId: string = this.auth.getUser().uid;
-    const partyCollection = collection(
-      this.firestore,
-      `users/${userId}/party/`
-    );
-    return addDoc(partyCollection, party);
+    const partyCollection = collection(this.firestore, `users/${userId}/party/`) as CollectionReference<Partial<Party>>;
+    return addDoc<Partial<Party>>(partyCollection, party);
   }
 
-  deleteParty(partyId: string) {
+  deleteParty(partyId: string): Promise<void> {
     const userId: string = this.auth.getUser().uid;
-    const documentReference = doc(
-      this.firestore,
-      `users/${userId}/party/${partyId}`
-    );
+    const documentReference = doc(this.firestore, `users/${userId}/party/${partyId}`);
     return deleteDoc(documentReference);
   }
 
-  async addTicketOperation(
-    partyId: string,
-    ticketCost: number,
-    type: string = 'add'
-  ) {
+  async addTicketOperation(partyId: string, ticketCost: number, type: string = 'add') {
     const userId: string = this.auth.getUser().uid;
     const partyDocRef = doc(this.firestore, `users/${userId}/party/${partyId}`);
     try {
       await runTransaction(this.firestore, async (transaction) => {
         const partyDoc = await transaction.get(partyDocRef);
 
-        const newRevenue =
-          type === 'add'
-            ? partyDoc.data().revenue + ticketCost
-            : partyDoc.data().revenue - ticketCost;
+        const newRevenue = type === 'add' ? partyDoc.data().revenue + ticketCost : partyDoc.data().revenue - ticketCost;
         transaction.update(partyDocRef, { revenue: newRevenue });
       });
     } catch (error) {
