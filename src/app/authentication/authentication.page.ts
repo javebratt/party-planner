@@ -56,9 +56,7 @@ export class AuthenticationPage implements OnInit {
       this.router.navigateByUrl('');
     } catch (error) {
       await loading.dismiss();
-      this.displayAlertMessage(
-        `Either we couldn't find your user or there was a problem with the password`
-      );
+      this.displayAlertMessage(`Either we couldn't find your user or there was a problem with the password`);
     }
   }
 

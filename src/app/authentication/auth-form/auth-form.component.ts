@@ -22,13 +22,7 @@ export class AuthFormComponent implements OnInit {
   initializeForm(showPasswordField: boolean): void {
     this.authForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: [
-        '',
-        Validators.compose([
-          showPasswordField ? Validators.required : null,
-          Validators.minLength(6),
-        ]),
-      ],
+      password: ['', Validators.compose([showPasswordField ? Validators.required : null, Validators.minLength(6)])],
     });
   }
 

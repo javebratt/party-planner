@@ -16,21 +16,11 @@
     [isPasswordResetPage]="url === 'reset'"
   ></app-auth-form>
 
-  <ion-button
-    expand="block"
-    fill="clear"
-    routerLink="/signup"
-    *ngIf="url && url !== 'signup'"
-  >
+  <ion-button expand="block" fill="clear" routerLink="/signup" *ngIf="url && url !== 'signup'">
     Create a new account
   </ion-button>
 
-  <ion-button
-    expand="block"
-    fill="clear"
-    routerLink="/reset"
-    *ngIf="url && url !== 'reset'"
-  >
+  <ion-button expand="block" fill="clear" routerLink="/reset" *ngIf="url && url !== 'reset'">
     I forgot my password :(
   </ion-button>
 </ion-content>

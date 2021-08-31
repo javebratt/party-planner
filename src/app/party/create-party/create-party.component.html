@@ -10,46 +10,22 @@
 <ion-content class="ion-padding">
   <ion-item class="ion-no-padding">
     <ion-label position="stacked">Event Name</ion-label>
-    <ion-input
-      [(ngModel)]="name"
-      type="text"
-      placeholder="What's your event's name?"
-    >
-    </ion-input>
+    <ion-input [(ngModel)]="name" type="text" placeholder="What's your event's name?"> </ion-input>
   </ion-item>
 
   <ion-item class="ion-no-padding">
     <ion-label position="stacked">Price</ion-label>
-    <ion-input
-      [(ngModel)]="ticketPrice"
-      type="number"
-      placeholder="How much will guests pay?"
-    >
-    </ion-input>
+    <ion-input [(ngModel)]="ticketPrice" type="number" placeholder="How much will guests pay?"> </ion-input>
   </ion-item>
 
   <ion-item class="ion-no-padding">
     <ion-label position="stacked">Cost</ion-label>
-    <ion-input
-      [(ngModel)]="cost"
-      type="number"
-      placeholder="How much are you spending?"
-    >
-    </ion-input>
+    <ion-input [(ngModel)]="cost" type="number" placeholder="How much are you spending?"> </ion-input>
   </ion-item>
 
-  <ion-datetime
-    class="party-date"
-    size="fixed"
-    presentation="date"
-    [(ngModel)]="date"
-  ></ion-datetime>
+  <ion-datetime class="party-date" size="fixed" presentation="date" [(ngModel)]="date"></ion-datetime>
 
-  <ion-button
-    [disabled]="!isValidForm()"
-    expand="block"
-    (click)="createEvent({name, date, ticketPrice, cost})"
-  >
+  <ion-button [disabled]="!isValidForm()" expand="block" (click)="createEvent({name, date, ticketPrice, cost})">
     Create Event
   </ion-button>
 </ion-content>

@@ -10,13 +10,7 @@ import { AuthenticationPage } from './authentication.page';
 import { AuthFormComponent } from './auth-form/auth-form.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    AuthenticationPageRoutingModule,
-    ReactiveFormsModule,
-  ],
+  imports: [CommonModule, FormsModule, IonicModule, AuthenticationPageRoutingModule, ReactiveFormsModule],
   declarations: [AuthenticationPage, AuthFormComponent],
 })
 export class AuthenticationPageModule {}
