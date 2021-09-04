@@ -14,7 +14,7 @@ import {
 import { map, Observable, of, switchMap } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Party } from './party.model';
-import { User } from '@firebase/auth';
+import { User } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
