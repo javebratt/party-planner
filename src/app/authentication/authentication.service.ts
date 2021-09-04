@@ -5,9 +5,10 @@ import {
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signOut,
+  User,
+  UserCredential,
 } from '@angular/fire/auth';
 import { doc, Firestore, setDoc } from '@angular/fire/firestore';
-import { User, UserCredential } from '@firebase/auth';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
