@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "javebratt-examples"
-  }
+    "default": "javebratt-examples",
+    "prod": "javebratt-examples"
+  },
+  "targets": {}
 }

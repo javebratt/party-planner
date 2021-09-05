@@ -18,6 +18,12 @@ import { getStorage, connectStorageEmulator, provideStorage } from '@angular/fir
 import { provideFunctions, getFunctions, connectFunctionsEmulator } from '@angular/fire/functions';
 import { firebaseConfig } from './credentials';
 
+import { USE_EMULATOR as USE_AUTH_EMULATOR } from '@angular/fire/compat/auth';
+import { USE_EMULATOR as USE_DATABASE_EMULATOR } from '@angular/fire/compat/database';
+import { USE_EMULATOR as USE_FIRESTORE_EMULATOR } from '@angular/fire/compat/firestore';
+import { USE_EMULATOR as USE_FUNCTIONS_EMULATOR } from '@angular/fire/compat/functions';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -28,27 +34,41 @@ import { firebaseConfig } from './credentials';
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => {
       const auth = getAuth();
-      connectAuthEmulator(auth, 'http://localhost:9099');
+      if (environment.useEmulators) {
+        connectAuthEmulator(auth, 'http://localhost:9099');
+      }
       return auth;
     }),
     provideFirestore(() => {
       const firestore = getFirestore();
-      connectFirestoreEmulator(firestore, 'localhost', 8080); // This needs to be first.
+      if (environment.useEmulators) {
+        connectFirestoreEmulator(firestore, 'localhost', 8080); // This needs to be first.
+      }
       enableIndexedDbPersistence(firestore);
       return firestore;
     }),
     provideStorage(() => {
       const storage = getStorage();
-      connectStorageEmulator(storage, 'localhost', 9199);
+      if (environment.useEmulators) {
+        connectStorageEmulator(storage, 'localhost', 9199);
+      }
       return storage;
     }),
     provideFunctions(() => {
       const functions = getFunctions();
-      connectFunctionsEmulator(functions, 'localhost', 5001);
+      if (environment.useEmulators) {
+        connectFunctionsEmulator(functions, 'localhost', 5001);
+      }
       return functions;
     }),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    /* { provide: USE_AUTH_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9099] : undefined },
+    { provide: USE_DATABASE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 9000] : undefined },
+    { provide: USE_FIRESTORE_EMULATOR, useValue: environment.useEmulators ? ['localhost', 8080] : undefined },
+    { provide: USE_FUNCTIONS_EMULATOR, useValue: environment.useEmulators ? ['localhost', 5001] : undefined }, */
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
