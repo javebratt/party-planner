@@ -31,5 +31,5 @@ npm-debug.log*
 /www
 
 credentials.ts
-functions/
+functions/node_modules/
 private/
