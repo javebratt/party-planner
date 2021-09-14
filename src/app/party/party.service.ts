@@ -11,7 +11,7 @@ import {
   addDoc,
   runTransaction,
 } from '@angular/fire/firestore';
-import { map, Observable, of, switchMap } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Party } from './party.model';
 import { User } from '@angular/fire/auth';
