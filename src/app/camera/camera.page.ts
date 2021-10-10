@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Camera, CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-camera',
