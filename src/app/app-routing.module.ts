@@ -5,7 +5,7 @@ import { AuthenticationGuard } from './authentication/authentication.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'party',
+    redirectTo: 'camera',
     pathMatch: 'full',
   },
   {
@@ -29,6 +29,10 @@ const routes: Routes = [
     path: 'party/:partyId',
     loadChildren: () => import('./party/party.module').then((m) => m.PartyPageModule),
     canActivate: [AuthenticationGuard],
+  },
+  {
+    path: 'camera',
+    loadChildren: () => import('./camera/camera.module').then((m) => m.CameraPageModule),
   },
 ];
 
