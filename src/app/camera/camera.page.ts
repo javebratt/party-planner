@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./camera.page.scss'],
 })
 export class CameraPage implements OnInit {
-  picture = 'http://placehold.it/300x200';
+  picture: string;
   constructor() {}
 
   ngOnInit() {}
