@@ -1,0 +1,6 @@
+{
+	"appId": "com.jsmobiledev.jorge",
+	"appName": "party-planner",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

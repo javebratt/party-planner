@@ -1,5 +1,7 @@
 {
   "name": "party-planner",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }
