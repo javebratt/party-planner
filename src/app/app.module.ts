@@ -9,7 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore, enableIndexedDbPersistence } from '@angular/fire/firestore';
-import { firebaseConfig } from './credentials';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,7 +19,7 @@ import { firebaseConfig } from './credentials';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    provideFirebaseApp(() => initializeApp(firebaseConfig)),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => {
       const firestore = getFirestore();
